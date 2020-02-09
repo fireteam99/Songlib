@@ -1,2 +1,2 @@
 # Songlib
-Project 1 for cs 314
+Project 1 for cs 213
