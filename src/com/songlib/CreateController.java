@@ -26,12 +26,12 @@ public class CreateController {
     private TextField yearTxtBox;
 
     @FXML
-    void cancelAddingSong(ActionEvent event) {
+    public void cancelAddingSong(ActionEvent event) {
 
     }
 
     @FXML
-    void submitNewSong(ActionEvent event) {
+    public void submitNewSong(ActionEvent event) {
 
     }
 }
