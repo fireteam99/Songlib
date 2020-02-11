@@ -15,7 +15,7 @@
 <!--            prefHeight="400.0" prefWidth="600.0">-->
 <!--</AnchorPane>-->
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.songlib.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.songlib.CreateController">
     <bottom>
         <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <buttons>
@@ -31,13 +31,13 @@
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add a song" BorderPane.alignment="CENTER" />
-                <Label fx:id="enterName" text="Name*" />
+                <Label text="Name*" />
                 <TextField fx:id="nameTxtBox" />
-                <Label fx:id="enterArtist" text="Artist*" />
+                <Label text="Artist*" />
                 <TextField fx:id="artistTxtBox" />
-                <Label fx:id="enterAlbum" text="Album" />
+                <Label text="Album" />
                 <TextField fx:id="albumTxtBox" />
-                <Label fx:id="enterYear" text="Year" />
+                <Label text="Year" />
                 <TextField fx:id="yearTxtBox" />
             </children>
             <BorderPane.margin>
