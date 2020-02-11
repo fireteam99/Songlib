@@ -8,28 +8,47 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import com.songlib.Song;
 
 public class MainController {
 
     //----Main menu (listview)
     @FXML
-    private ListView<?> songList;
-    ObservableList observableList;
+    ListView<String> songList;
+    private ObservableList<String> observableList;
 
-    public MainController() {
+    public void start(Stage mainStage) {
         // TODO: read the saved songs from json file
-        ArrayList<Song> songs = new ArrayList<>();
-        songs.add(new Song("Test1", "John Doe", "Test1", "2020"));
-        songs.add(new Song("Test2", "Jane Smith", "Test2", "2019"));
-        songs.add(new Song("Test3", "Kanye", "Test3", "2017"));
+//        ArrayList<Song> songs = new ArrayList<>();
+//        songs.add(new Song("Test1", "John Doe", "Test1", "2020"));
+//        songs.add(new Song("Test2", "Jane Smith", "Test2", "2019"));
+//        songs.add(new Song("Test3", "Kanye", "Test3", "2017"));
         // cast the arraylist to observablelist
-        observableList = FXCollections.observableArrayList(songs);
+        observableList = FXCollections.observableArrayList(
+                "Giants",
+                "Patriots",
+                "49ers",
+                "Rams",
+                "Packers",
+                "Colts",
+                "Cowboys",
+                "Broncos",
+                "Vikings",
+                "Dolphins",
+                "Titans",
+                "Seahawks",
+                "Steelers",
+                "Jaguars");
+
+        songList.setItems(observableList);
     }
 
     public void setListView() {
