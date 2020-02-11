@@ -12,6 +12,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import com.songlib.Song;
+
 public class EditController {
 
     @FXML
@@ -43,7 +45,7 @@ public class EditController {
     }
 
     @FXML
-    public void updateSong(ActionEvent event, MainController song) { //assuming we recieved song obj from MainController
+    public void updateSong(ActionEvent event, Song song) { //assuming we recieved song obj from MainController
 
         //should get a song id from the MainController --> MainController will pass in an id for the
         //song that we want to edit.
@@ -56,10 +58,10 @@ public class EditController {
         //----coding starts here...----//
 
         // autofill selected song's data (using get methods from MainController)
-        this.editNameBox = song.getName();
-        this.editArtistBox = song.getArtist();
-        this.editAlbumBox = song.getAlbum();
-        this.editYearBox = song.getYear();
+        editNameBox.setText(song.getName());
+        editArtistBox.setText(song.getArtist());
+        editAlbumBox.setText(song.getAlbum());
+        editYearBox.setText(song.getYear());
 
         //now to allow user to edit the text in textbox
 
