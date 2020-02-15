@@ -16,12 +16,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
 
-        // load main controller
-//        MainController mainController = loader.getController();
-//        mainController.start(primaryStage);
-
         primaryStage.setTitle("Welcome to Songlib");
         primaryStage.setScene(new Scene(root, 750, 500));
+        primaryStage.setMinHeight(400);
+        primaryStage.setMinWidth(600);
         primaryStage.show();
     }
 

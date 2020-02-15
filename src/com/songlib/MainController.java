@@ -1,5 +1,6 @@
 package com.songlib;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,6 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -22,9 +26,13 @@ import java.util.ResourceBundle;
 
 import com.songlib.Song;
 
+
 public class MainController {
 
     //----Main menu (listview)
+    @FXML
+    BorderPane borderPane;
+
     @FXML
     private ListView<Song> listView;
     private ObservableList<Song> observableList;
@@ -40,28 +48,41 @@ public class MainController {
     }
 
     public void initialize() {
+        // generates the list
         listView.setItems(observableList);
         listView.setCellFactory(songListView -> new SongListViewCell());
+        // event handler for song selection
+        listView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> renderSelectedSong());
+        // select the first item
+        listView.getSelectionModel().select(0);
     }
 
-    public void setListView() {
-
+    public void renderSelectedSong() {
+        Song selectedSong = listView.getSelectionModel().getSelectedItem();
+        albumCover.setImage(new Image("https://i1.sndcdn.com/artworks-000272021369-bx64j7-t500x500.jpg"));
+        name.setText(selectedSong.getName());
+        artist.setText(selectedSong.getArtist());
+        album.setText(selectedSong.getAlbum());
+        year.setText(selectedSong.getYear());
     }
 
     @FXML
     private Button addButton;
 
     @FXML
-    private Text name;
+    private ImageView albumCover;
 
     @FXML
-    private Text artist;
+    private Label name;
 
     @FXML
-    private Text album;
+    private Label artist;
 
     @FXML
-    private Text year;
+    private Label album;
+
+    @FXML
+    private Label year;
 
     @FXML
     private Button editOption;
@@ -77,5 +98,6 @@ public class MainController {
     }
 
     //----end of main menu (listview)
+
 
 }

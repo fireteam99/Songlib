@@ -3,17 +3,17 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.Label?>
-<HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="${hBox.parent.width}" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT">
+<HBox fx:id="hBox" maxHeight="100" maxWidth="-Infinity" minHeight="80" minWidth="-Infinity" prefHeight="90" prefWidth="0"
+      spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT">
    <children>
-      <ImageView fx:id="imageView" fitHeight="${hBox.width * 0.3}" fitWidth="${hBox.width * 0.3}" pickOnBounds="true" preserveRatio="true" />
-      <VBox prefHeight="200.0" prefWidth="100.0" alignment="CENTER">
-         <children>
-            <Label fx:id="nameLabel" text="Song Name" />
-            <Label fx:id="artistLabel" text="Artist Name" />
-         </children>
-      </VBox>
+      <ImageView fx:id="imageView" fitHeight="80" fitWidth="80" pickOnBounds="true" preserveRatio="true" />
+         <VBox maxWidth="-Infinity" maxHeight="-Infinity" minWidth="100" prefHeight="50" prefWidth="100" alignment="CENTER">
+            <children>
+               <Label fx:id="nameLabel" text="Song Name" />
+               <Label fx:id="artistLabel" text="Artist Name" />
+            </children>
+         </VBox>
    </children>
 </HBox>
