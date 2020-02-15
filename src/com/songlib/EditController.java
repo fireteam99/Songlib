@@ -16,6 +16,8 @@ import com.songlib.Song;
 
 public class EditController {
 
+    private String songid;
+
     @FXML
     private TextField editNameBox;
 
@@ -45,7 +47,9 @@ public class EditController {
     }
 
     @FXML
-    public void updateSong(ActionEvent event, Song song) { //assuming we recieved song obj from MainController
+    public void updateSong(ActionEvent event) throws Exception{ //this is the "submit" button
+
+        //**cannot pass in another parameter, gives error in fxml file
 
         //should get a song id from the MainController --> MainController will pass in an id for the
         //song that we want to edit.
@@ -56,17 +60,48 @@ public class EditController {
         //clicking the "update" button will update the song directly, which will then have to update the json file
 
         //----coding starts here...----//
+        String name = editNameBox.getText();
+        String artist = editArtistBox.getText();
+        String album = editAlbumBox.getText();
+        String year = editYearBox.getText();
 
-        // autofill selected song's data (using get methods from MainController)
+        //now update Song object --> this updates the temp copy, must set song obj to temp
+        Song temp = new Song();
+        temp.setName(name);
+        temp.setArtist(artist);
+        temp.setAlbum(album);
+        temp.setYear(year);
+        //temp = //Song obj with songid ***;
+
+        //check for bad input in year field ***
+
+        //check for duplicates - call checkDuplicates method***
+
+        //after update is successful, go back to main page
+        Node n = (Node) event.getSource();
+        Stage stage=(Stage) n.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+    //**need to create EditController instance in MainController object when we click on editSong
+    //**then call currSong method with that instance, passing in the Song object.
+    //must be called in MainController
+    public void currSong(Song song){ //this just gets the instance that was passed in, and fills textfields
+        songid = song.getId();
         editNameBox.setText(song.getName());
         editArtistBox.setText(song.getArtist());
         editAlbumBox.setText(song.getAlbum());
         editYearBox.setText(song.getYear());
-
-        //now to allow user to edit the text in textbox
-
-
     }
+    public Boolean checkDuplicates(Song song){
+        //will go thru songlist and check to see if this song already exists
+
+        return false;
+    }
+
 
 }
 
