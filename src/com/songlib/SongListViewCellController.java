@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 
-public class SongListViewCell extends ListCell<Song> {
+public class SongListViewCellController extends ListCell<Song> {
     private FXMLLoader loader;
     @FXML
     private HBox hBox;
