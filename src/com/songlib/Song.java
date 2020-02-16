@@ -8,6 +8,7 @@ public class Song {
     private String artist;
     private String album;
     private String year;
+
     public Song(String name, String artist, String album, String year) {
         this.id = UUID.randomUUID().toString();
         this.name = name;

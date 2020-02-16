@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 
 import javafx.scene.control.Label;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 
@@ -26,12 +27,14 @@ public class MainController {
     private ListView<Song> listView;
     private ObservableList<Song> observableList;
 
-    public MainController() {
+    public MainController() throws FileNotFoundException {
         // TODO: read the saved songs from json file
-        ArrayList<Song> songs = new ArrayList<>();
-        songs.add(new Song("Test1", "John Doe", "Test1", "2020"));
-        songs.add(new Song("Test2", "Jane Smith", "Test2", "2019"));
-        songs.add(new Song("Test3", "Kanye", "Test3", "2017"));
+        SongList songList = new SongList();
+        songList.createSong(new Song("Test1", "John Doe", "Test1", "2020"));
+        ArrayList<Song> songs = songList.getSongs();
+//        songs.add(new Song("Test1", "John Doe", "Test1", "2020"));
+//        songs.add(new Song("Test2", "Jane Smith", "Test2", "2019"));
+//        songs.add(new Song("Test3", "Kanye", "Test3", "2017"));
         // add to observablelist
         observableList = FXCollections.observableList(songs);
     }
