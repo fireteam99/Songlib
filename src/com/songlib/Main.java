@@ -14,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("create.fxml"));
 
         primaryStage.setTitle("Welcome to Songlib");
         primaryStage.setScene(new Scene(root, 750, 500));
