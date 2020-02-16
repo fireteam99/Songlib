@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 
 import javafx.scene.control.Label;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -30,11 +31,8 @@ public class MainController {
     public MainController() throws FileNotFoundException {
         // TODO: read the saved songs from json file
         SongList songList = new SongList();
-        songList.createSong(new Song("Test1", "John Doe", "Test1", "2020"));
+        songList.updateSong("c2fe03cf-433a-440c-b6fe-5e2ac48bd26c", "The Box", "Roddy Rich", "Please Excuse Me for Being Anti Social", "2019");
         ArrayList<Song> songs = songList.getSongs();
-//        songs.add(new Song("Test1", "John Doe", "Test1", "2020"));
-//        songs.add(new Song("Test2", "Jane Smith", "Test2", "2019"));
-//        songs.add(new Song("Test3", "Kanye", "Test3", "2017"));
         // add to observablelist
         observableList = FXCollections.observableList(songs);
     }
@@ -51,7 +49,7 @@ public class MainController {
 
     public void renderSelectedSong() {
         Song selectedSong = listView.getSelectionModel().getSelectedItem();
-        albumCover.setImage(new Image("https://i1.sndcdn.com/artworks-000272021369-bx64j7-t500x500.jpg"));
+        albumCover.setImage(new Image(new File("resources/album_cover_placeholder.png").toURI().toString()));
         name.setText(selectedSong.getName());
         artist.setText(selectedSong.getArtist());
         album.setText(selectedSong.getAlbum());

@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+import java.io.File;
 import java.io.IOException;
 
 public class SongListViewCellController extends ListCell<Song> {
@@ -40,7 +41,7 @@ public class SongListViewCellController extends ListCell<Song> {
                 }
             }
             if (imageView != null) {
-                imageView.setImage(new Image("https://i1.sndcdn.com/artworks-000272021369-bx64j7-t500x500.jpg"));
+                imageView.setImage(new Image(new File("resources/album_cover_placeholder.png").toURI().toString()));
             }
             if (nameLabel != null) {
                 nameLabel.setText(String.valueOf(song.getName()));
