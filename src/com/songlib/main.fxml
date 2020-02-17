@@ -31,7 +31,7 @@
                 </HBox>
             </top>
             <center>
-                <VBox alignment="CENTER" style="-fx-background-color: #FFAD9B;">
+                <VBox fx:id="selectedSongContainer" alignment="CENTER" style="-fx-background-color: #FFAD9B;">
                     <ImageView fx:id="albumCover" fitHeight="${(borderPane.width + borderPane.height) * 0.15}"
                                fitWidth="${(borderPane.width + borderPane.height) * 0.15}" pickOnBounds="true"
                                preserveRatio="true">
@@ -39,10 +39,10 @@
                             <Insets top="0"/>
                         </VBox.margin>
                     </ImageView>
-                    <Label fx:id="name" text="Name"/>
-                    <Label fx:id="artist" text="Artist"/>
-                    <Label fx:id="album" text="Album"/>
-                    <Label fx:id="year" text="Year"/>
+                    <Label fx:id="name" />
+                    <Label fx:id="artist" />
+                    <Label fx:id="album" />
+                    <Label fx:id="year" />
                     <HBox>
                         <children>
                             <Button fx:id="editButton" mnemonicParsing="false" onAction="#editSong" text="Edit" />

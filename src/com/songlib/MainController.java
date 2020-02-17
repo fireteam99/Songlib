@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -67,14 +68,20 @@ public class MainController {
         }
     }
 
+    @FXML
+    private VBox selectedSongContainer;
+
     public void renderSelectedSong() {
         Song selectedSong = listView.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
+            selectedSongContainer.setVisible(true);
             albumCover.setImage(new Image(new File("resources/album_cover_placeholder.png").toURI().toString()));
             name.setText(selectedSong.getName());
             artist.setText(selectedSong.getArtist());
             album.setText(selectedSong.getAlbum());
             year.setText(selectedSong.getYear());
+        } else {
+            selectedSongContainer.setVisible(false);
         }
     }
 
@@ -170,14 +177,15 @@ public class MainController {
     public void selectSong(String id) throws FileNotFoundException {
         // if null is passed in just select nothing
         if (id == null) {
-            listView.getSelectionModel().select(null);
+            listView.getSelectionModel().clearSelection();
+        } else {
+            refreshSongList();
+            List<Song> filter = observableList.stream().filter(song -> song.getId().equals(id)).collect(Collectors.toList());
+            if (filter.isEmpty()) {
+                throw new NoSuchElementException("The requested song does not exist.");
+            }
+            listView.getSelectionModel().select(filter.get(0));
         }
-        refreshSongList();
-        List<Song> filter = observableList.stream().filter(song -> song.getId().equals(id)).collect(Collectors.toList());
-        if (filter.isEmpty()) {
-            throw new NoSuchElementException("The requested song does not exist.");
-        }
-        listView.getSelectionModel().select(filter.get(0));
     }
 
     //----end of main menu (listview)
