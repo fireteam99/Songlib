@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class CreateController {
-    private String songid;
 
     @FXML
     private Button cancelAddButton;
@@ -80,8 +79,6 @@ public class CreateController {
 
         }
 
-
-
         //----end of stuff----//
         //goes back to main page upon submission
         try {
@@ -89,7 +86,7 @@ public class CreateController {
             Parent root = loader.load();
 
             MainController mctr = loader.getController();
-            mctr.selectSong(songid);
+            mctr.selectSong(newSong.getId());
             Node n = (Node) event.getSource();
             Stage stage=(Stage) n.getScene().getWindow();
             Scene scene = new Scene(root);
@@ -101,8 +98,6 @@ public class CreateController {
         }
 
     }
-    public void currSong(String id){
-        songid = id;
-    }
+
 
 }

@@ -88,7 +88,7 @@ public class MainController {
             Parent root = loader.load();
 
             CreateController cctr = loader.getController();
-            cctr.currSong(listView.getSelectionModel().getSelectedItem().getId());
+
 
             Node n = (Node) event.getSource();
             Stage stage=(Stage) n.getScene().getWindow();
