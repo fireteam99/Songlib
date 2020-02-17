@@ -108,14 +108,15 @@ public class SongList {
         if (!duplicateSongFilter.isEmpty()) {
             throw new IllegalArgumentException("A song already exists with the same name and artist.");
         }
-        // get the song to edit
-        Song song = songToEditFilter.get(0);
-
-        // update the song
-        song.setName(name);
-        song.setArtist(artist);
-        song.setAlbum(album);
-        song.setYear(year);
+        for (Song song: songList) {
+            if (song.getId().equals(id)) {
+                // update the song
+                song.setName(name);
+                song.setArtist(artist);
+                song.setAlbum(album);
+                song.setYear(year);
+            }
+        }
 
         // write the update list to file
         Gson gson = new Gson();

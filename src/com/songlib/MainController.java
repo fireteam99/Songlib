@@ -41,7 +41,7 @@ public class MainController {
 
     public MainController() throws FileNotFoundException {
         SongList songList = new SongList();
-        songList.createSong(new Song( "michael Jackson", "THis is it", "Hi", "2017"));
+//        songList.createSong(new Song( "michael Jackson", "THis is it", "Hi", "2017"));
         ArrayList<Song> songs = songList.getSongs();
         observableList = FXCollections.observableList(songs);
     }
