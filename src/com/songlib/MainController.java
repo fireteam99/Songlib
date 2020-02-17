@@ -5,6 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -12,15 +16,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class MainController {
 
     //----Main menu (listview)
+    private Stage stage;
+
     @FXML
     BorderPane borderPane;
 
@@ -72,7 +80,19 @@ public class MainController {
 
     @FXML
     public void createSong(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("create.fxml"));
+            Parent root = loader.load();
 
+            Node n = (Node) event.getSource();
+            Stage stage=(Stage) n.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -95,6 +115,21 @@ public class MainController {
 
     @FXML
     public void editSong(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("edit.fxml"));
+            Parent root = loader.load();
+
+            EditController ectr = loader.getController();
+            ectr.currSong(listView.getSelectionModel().getSelectedItem().getId());
+            Node n = (Node) event.getSource();
+            Stage stage=(Stage) n.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -109,6 +144,7 @@ public class MainController {
         // we want the changes on file to update
         refreshSongList();
     }
+
 
     //----end of main menu (listview)
 

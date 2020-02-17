@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 
 import com.songlib.Song;
 
+import java.io.FileNotFoundException;
+
 public class EditController {
 
     private String songid;
@@ -49,15 +51,7 @@ public class EditController {
     @FXML
     public void updateSong(ActionEvent event) throws Exception{ //this is the "submit" button
 
-        //**cannot pass in another parameter, gives error in fxml file
-
-        //should get a song id from the MainController --> MainController will pass in an id for the
-        //song that we want to edit.
-
-        //once we have the id, we can auto fill the text fields with the current data (i.e. name, artist,...)
-        //and let the user edit as desired
-
-        //clicking the "update" button will update the song directly, which will then have to update the json file
+        //**return id as well
 
         //----coding starts here...----//
         String name = editNameBox.getText();
@@ -71,11 +65,6 @@ public class EditController {
         temp.setArtist(artist);
         temp.setAlbum(album);
         temp.setYear(year);
-        //temp = //Song obj with songid ***;
-
-        //check for bad input in year field ***
-
-        //check for duplicates - call checkDuplicates method***
 
         //after update is successful, go back to main page
         Node n = (Node) event.getSource();
@@ -89,17 +78,13 @@ public class EditController {
     //**need to create EditController instance in MainController object when we click on editSong
     //**then call currSong method with that instance, passing in the Song object.
     //must be called in MainController
-    public void currSong(Song song){ //this just gets the instance that was passed in, and fills textfields
-        songid = song.getId();
+    public void currSong(String id) throws FileNotFoundException { //this just gets the instance that was passed in, and fills textfields
+        SongList sl = new SongList();
+        Song song = sl.getSong(id);
         editNameBox.setText(song.getName());
-        editArtistBox.setText(song.getArtist());
         editAlbumBox.setText(song.getAlbum());
+        editArtistBox.setText(song.getArtist());
         editYearBox.setText(song.getYear());
-    }
-    public Boolean checkDuplicates(Song song){
-        //will go thru songlist and check to see if this song already exists
-
-        return false;
     }
 
 

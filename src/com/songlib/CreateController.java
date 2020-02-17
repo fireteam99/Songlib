@@ -74,7 +74,7 @@ public class CreateController {
 
         Song newSong = new Song(name,artist,album,year); //create new song obj with given input
 
-        //add to songList ***
+        //add to songList and return song id***
 
 
         //----end of stuff----//
