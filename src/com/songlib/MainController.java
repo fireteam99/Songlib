@@ -22,6 +22,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 
 public class MainController {
@@ -145,6 +148,14 @@ public class MainController {
         refreshSongList();
     }
 
+    public void setSelectedSong(String id) throws FileNotFoundException {
+        refreshSongList();
+        List<Song> filter = observableList.stream().filter(song -> song.getId().equals(id)).collect(Collectors.toList());
+        if (filter.isEmpty()) {
+            throw new NoSuchElementException("The requested song does not exist.");
+        }
+        listView.getSelectionModel().select(filter.get(0));
+    }
 
     //----end of main menu (listview)
 
