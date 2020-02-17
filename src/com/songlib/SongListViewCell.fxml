@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Label?>
+<HBox fx:id="hBox" maxHeight="100" maxWidth="-Infinity" minHeight="80" minWidth="-Infinity" prefHeight="90" prefWidth="0"
+      spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT"
+      stylesheets="@songListViewCell.css">
+   <children>
+      <ImageView fx:id="imageView" fitHeight="80" fitWidth="80" pickOnBounds="true" preserveRatio="true" />
+         <VBox maxWidth="-Infinity" maxHeight="-Infinity" minWidth="100" prefHeight="50" prefWidth="100" alignment="CENTER_LEFT" spacing="5">
+            <children>
+               <Label id="song-label" fx:id="nameLabel" text="Song Name" />
+               <Label id="artist-label" fx:id="artistLabel" text="Artist Name" />
+            </children>
+         </VBox>
+   </children>
+</HBox>

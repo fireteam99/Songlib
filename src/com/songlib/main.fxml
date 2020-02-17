@@ -7,39 +7,53 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Label?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.songlib.MainController">
-<left>
-    <ListView fx:id="songList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-</left>
-<center>
-    <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <top>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                <children>
-                    <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                        <buttons>
-                            <Button fx:id="addButton" mnemonicParsing="false" onAction="#createNewSong" text="+" />
-                        </buttons>
-                    </ButtonBar>
-                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                </children>
-            </VBox>
-        </top>
-        <center>
-            <VBox alignment="CENTER">
-                <Text fx:id="name" text="Name" />
-                <Text fx:id="artist" text="Artist" />
-                <Text fx:id="album" text="Album" />
-                <Text fx:id="year" text="Year" />
-               <Button fx:id="editOption" mnemonicParsing="false" onAction="#editSong" text="Edit">
-                  <VBox.margin>
-                     <Insets top="10.0" />
-                  </VBox.margin>
-               </Button>
-            </VBox>
-        </center>
-    </BorderPane>
-</center>
+<?import javafx.scene.layout.HBox?>
+<?import java.lang.Double?>
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400" minWidth="600"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.songlib.MainController">
+    <left>
+        <ListView fx:id="listView" prefWidth="${borderPane.width * 0.3}" maxWidth="300" minWidth="250"
+                  BorderPane.alignment="CENTER"/>
+    </left>
+    <center>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <top>
+                <HBox prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER" alignment="CENTER_RIGHT">
+                    <Button fx:id="createButton" minWidth="30" minHeight="30" mnemonicParsing="false" onAction="#createSong" text="Add Song">
+                        <HBox.margin>
+                            <Insets top="10.0"/>
+                            <Insets right="10.0"/>
+                        </HBox.margin>
+                    </Button>
+                </HBox>
+            </top>
+            <center>
+                <VBox alignment="CENTER" style="-fx-background-color: #FFAD9B;">
+                    <ImageView fx:id="albumCover" fitHeight="${(borderPane.width + borderPane.height) * 0.15}"
+                               fitWidth="${(borderPane.width + borderPane.height) * 0.15}" pickOnBounds="true"
+                               preserveRatio="true">
+                        <VBox.margin>
+                            <Insets top="0"/>
+                        </VBox.margin>
+                    </ImageView>
+                    <Label fx:id="name" text="Name"/>
+                    <Label fx:id="artist" text="Artist"/>
+                    <Label fx:id="album" text="Album"/>
+                    <Label fx:id="year" text="Year"/>
+                    <HBox>
+                        <children>
+                            <Button fx:id="editButton" mnemonicParsing="false" onAction="#editSong" text="Edit" />
+                            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteSong" text="Delete" />
+                        </children>
+                        <VBox.margin>
+                            <Insets top="10.0"/>
+                        </VBox.margin>
+                    </HBox>
+                </VBox>
+            </center>
+        </BorderPane>
+    </center>
 </BorderPane>

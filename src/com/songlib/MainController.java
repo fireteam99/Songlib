@@ -7,62 +7,110 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.text.Text;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import com.songlib.Song;
+
 
 public class MainController {
 
     //----Main menu (listview)
     @FXML
-    private ListView<?> songList;
-    ObservableList observableList;
+    BorderPane borderPane;
 
-    public MainController() {
-        // TODO: read the saved songs from json file
-        ArrayList<Song> songs = new ArrayList<>();
-        songs.add(new Song("Test1", "John Doe", "Test1", "2020"));
-        songs.add(new Song("Test2", "Jane Smith", "Test2", "2019"));
-        songs.add(new Song("Test3", "Kanye", "Test3", "2017"));
-        // cast the arraylist to observablelist
-        observableList = FXCollections.observableArrayList(songs);
+    @FXML
+    private ListView<Song> listView;
+    private ObservableList<Song> observableList;
+
+    public MainController() throws FileNotFoundException {
+        SongList songList = new SongList();
+//        songList.createSong(new Song( "Shelter", "Madeon", "Shelter", "2017"));
+        ArrayList<Song> songs = songList.getSongs();
+        observableList = FXCollections.observableList(songs);
     }
 
-    public void setListView() {
+    public void initialize() throws FileNotFoundException {
+        // generates the list
+        listView.setItems(observableList);
+        listView.setCellFactory(songListView -> new SongListViewCellController());
+        // event handler for song selection
+        listView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> renderSelectedSong());
+        // select the first item if the list is not empty
+        if (!observableList.isEmpty()) {
+            listView.getSelectionModel().select(0);
+        }
+    }
+
+    public void refreshSongList() throws FileNotFoundException {
+        SongList songList = new SongList();
+        ArrayList<Song> songs = songList.getSongs();
+        observableList.removeAll(observableList);
+        for (Song song: songs) {
+            observableList.add(song);
+        }
+    }
+
+    public void renderSelectedSong() {
+        Song selectedSong = listView.getSelectionModel().getSelectedItem();
+        if (selectedSong != null) {
+            albumCover.setImage(new Image(new File("resources/album_cover_placeholder.png").toURI().toString()));
+            name.setText(selectedSong.getName());
+            artist.setText(selectedSong.getArtist());
+            album.setText(selectedSong.getAlbum());
+            year.setText(selectedSong.getYear());
+        }
+    }
+
+    @FXML
+    private Button createButton;
+
+    @FXML
+    public void createSong(ActionEvent event) {
 
     }
 
     @FXML
-    private Button addButton;
+    private ImageView albumCover;
 
     @FXML
-    private Text name;
+    private Label name;
 
     @FXML
-    private Text artist;
+    private Label artist;
 
     @FXML
-    private Text album;
+    private Label album;
 
     @FXML
-    private Text year;
+    private Label year;
 
     @FXML
-    private Button editOption;
-
-    @FXML
-    public void createNewSong(ActionEvent event) {
-
-    }
+    private Button editButton;
 
     @FXML
     public void editSong(ActionEvent event) {
 
     }
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    public void deleteSong(ActionEvent event) throws FileNotFoundException {
+        Song selectedSong = listView.getSelectionModel().getSelectedItem();
+        SongList songList = new SongList();
+        songList.deleteSong(selectedSong.getId());
+        // we want the changes on file to update
+        refreshSongList();
+    }
+
     //----end of main menu (listview)
+
 
 }
