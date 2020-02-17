@@ -42,15 +42,24 @@ public class SongListViewCellController extends ListCell<Song> {
             }
             if (imageView != null) {
                 imageView.setImage(new Image(new File("resources/album_cover_placeholder.png").toURI().toString()));
+            } else {
+                setText(null);
+                setGraphic(null);
             }
             if (nameLabel != null) {
                 nameLabel.setText(String.valueOf(song.getName()));
+            } else {
+                setText(null);
+                setGraphic(null);
             }
             if (artistLabel != null) {
                 artistLabel.setText(String.valueOf(song.getArtist()));
+            } else {
+                setText(null);
+                setGraphic(null);
             }
+            setText(null);
+            setGraphic(hBox);
         }
-        setText(null);
-        setGraphic(hBox);
     }
 }

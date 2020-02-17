@@ -29,35 +29,51 @@ public class MainController {
     private ObservableList<Song> observableList;
 
     public MainController() throws FileNotFoundException {
-        // TODO: read the saved songs from json file
         SongList songList = new SongList();
-        songList.updateSong("c2fe03cf-433a-440c-b6fe-5e2ac48bd26c", "The Box", "Roddy Rich", "Please Excuse Me for Being Anti Social", "2019");
+        songList.createSong(new Song( "Shelter", "Madeon", "Shelter", "2017"));
         ArrayList<Song> songs = songList.getSongs();
-        // add to observablelist
         observableList = FXCollections.observableList(songs);
     }
 
-    public void initialize() {
+    public void initialize() throws FileNotFoundException {
         // generates the list
         listView.setItems(observableList);
         listView.setCellFactory(songListView -> new SongListViewCellController());
         // event handler for song selection
         listView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> renderSelectedSong());
-        // select the first item
-        listView.getSelectionModel().select(0);
+        // select the first item if the list is not empty
+        if (!observableList.isEmpty()) {
+            listView.getSelectionModel().select(0);
+        }
+    }
+
+    public void refreshSongList() throws FileNotFoundException {
+        SongList songList = new SongList();
+        ArrayList<Song> songs = songList.getSongs();
+        observableList.removeAll(observableList);
+        for (Song song: songs) {
+            observableList.add(song);
+        }
     }
 
     public void renderSelectedSong() {
         Song selectedSong = listView.getSelectionModel().getSelectedItem();
-        albumCover.setImage(new Image(new File("resources/album_cover_placeholder.png").toURI().toString()));
-        name.setText(selectedSong.getName());
-        artist.setText(selectedSong.getArtist());
-        album.setText(selectedSong.getAlbum());
-        year.setText(selectedSong.getYear());
+        if (selectedSong != null) {
+            albumCover.setImage(new Image(new File("resources/album_cover_placeholder.png").toURI().toString()));
+            name.setText(selectedSong.getName());
+            artist.setText(selectedSong.getArtist());
+            album.setText(selectedSong.getAlbum());
+            year.setText(selectedSong.getYear());
+        }
     }
 
     @FXML
-    private Button addButton;
+    private Button createButton;
+
+    @FXML
+    public void createSong(ActionEvent event) {
+
+    }
 
     @FXML
     private ImageView albumCover;
@@ -75,16 +91,23 @@ public class MainController {
     private Label year;
 
     @FXML
-    private Button editOption;
-
-    @FXML
-    public void createNewSong(ActionEvent event) {
-
-    }
+    private Button editButton;
 
     @FXML
     public void editSong(ActionEvent event) {
 
+    }
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    public void deleteSong(ActionEvent event) throws FileNotFoundException {
+        Song selectedSong = listView.getSelectionModel().getSelectedItem();
+        SongList songList = new SongList();
+        songList.deleteSong(selectedSong.getId());
+        // we want the changes on file to update
+        refreshSongList();
     }
 
     //----end of main menu (listview)
