@@ -73,10 +73,15 @@ public class EditController {
             Stage stage = (Stage) b.getScene().getWindow();
             badInput.initOwner(stage);
 
-            badInput.setTitle("Error.");
+            badInput.setTitle("Error: Please make sure you did not remove storage.json file!.");
             String content = n.getMessage();
             badInput.setContentText(content);
             badInput.showAndWait();
+
+            Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }
         catch (IllegalArgumentException i){
             Alert badInput = new Alert(Alert.AlertType.INFORMATION);
@@ -88,7 +93,6 @@ public class EditController {
             String content = i.getMessage();
             badInput.setContentText(content);
             badInput.showAndWait();
-
         }
 
         //after update is successful, go back to main page
@@ -96,17 +100,17 @@ public class EditController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
             Parent root = loader.load();
 
-            MainController mctr = loader.getController();
-            mctr.selectSong(songid);
-            Node n = (Node) event.getSource();
-            Stage stage=(Stage) n.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+        MainController mctr = loader.getController();
+        mctr.selectSong(songid);
+        Node n = (Node) event.getSource();
+        Stage stage=(Stage) n.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
 
     }
     //**need to create EditController instance in MainController object when we click on editSong

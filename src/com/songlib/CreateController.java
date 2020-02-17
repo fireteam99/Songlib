@@ -13,9 +13,11 @@ import javafx.stage.Stage;
 
 import com.songlib.MainController; //**
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class CreateController {
+    private String songid;
 
     @FXML
     private Button cancelAddButton;
@@ -57,37 +59,50 @@ public class CreateController {
         String album = albumTxtBox.getText();
         String year = yearTxtBox.getText();
 
-        if (Pattern.matches(".*[a-zA-Z]+.*", year) == true) { //if year has any letters
-            //show error popup
+
+        //check for duplicates -- iterate through songList***
+
+        Song newSong = new Song(name,artist,album,year); //create new song obj with given input
+        SongList sl = new SongList();
+        try {
+            sl.createSong(newSong);
+        }
+        catch (IllegalArgumentException i){
             Alert badInput = new Alert(Alert.AlertType.INFORMATION);
             Button b = (Button) event.getSource();
             Stage stage = (Stage) b.getScene().getWindow();
             badInput.initOwner(stage);
 
-            badInput.setTitle("Invalid Input: Please try again.");
-            String content = "Please enter only numberical values for the 'year' field.";
+            badInput.setTitle("Error.");
+            String content = i.getMessage();
             badInput.setContentText(content);
             badInput.showAndWait();
+
         }
-
-        //check for duplicates -- iterate through songList***
-
-        Song newSong = new Song(name,artist,album,year); //create new song obj with given input
-
-
-        //add to songList and return song id***
 
 
 
         //----end of stuff----//
         //goes back to main page upon submission
-        Node n = (Node) event.getSource();
-        Stage stage=(Stage) n.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+            Parent root = loader.load();
 
+            MainController mctr = loader.getController();
+            mctr.selectSong(songid);
+            Node n = (Node) event.getSource();
+            Stage stage=(Stage) n.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void currSong(String id){
+        songid = id;
     }
 
 }
