@@ -108,6 +108,10 @@ public class SongList {
         if (!duplicateSongFilter.isEmpty()) {
             throw new IllegalArgumentException("A song already exists with the same name and artist.");
         }
+        // makes sure that the year is valid
+        if (!year.matches("^\\d{4}$")) {
+            throw new IllegalArgumentException("Please make sure your year is between 0000 and 9999 ");
+        }
         for (Song song: songList) {
             if (song.getId().equals(id)) {
                 // update the song
