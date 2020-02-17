@@ -148,7 +148,7 @@ public class MainController {
         refreshSongList();
     }
 
-    public void setSelectedSong(String id) throws FileNotFoundException {
+    public void selectSong(String id) throws FileNotFoundException {
         refreshSongList();
         List<Song> filter = observableList.stream().filter(song -> song.getId().equals(id)).collect(Collectors.toList());
         if (filter.isEmpty()) {

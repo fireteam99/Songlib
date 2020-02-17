@@ -97,6 +97,10 @@ public class SongList {
         if (songToEditFilter.isEmpty()) {
             throw new NoSuchElementException("The song to update does not exist.");
         }
+        // make sure that name and artist are not empty
+        if (name.isEmpty() || artist.isEmpty()) {
+            throw new IllegalArgumentException("A song's name and artist cannot be empty.");
+        }
         // make sure that the song is not a duplicate, negating id match to allow for idempotence
         List<Song> duplicateSongFilter = songList.stream()
                 .filter(song -> song.getArtist().equalsIgnoreCase(artist) && song.getName().equalsIgnoreCase(name) && !song.getId().equals(id))
