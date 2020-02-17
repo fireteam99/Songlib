@@ -142,13 +142,33 @@ public class MainController {
     @FXML
     public void deleteSong(ActionEvent event) throws FileNotFoundException {
         Song selectedSong = listView.getSelectionModel().getSelectedItem();
+        // need to figure out which song to select next
+        // if there is only one item, don't select anything
+        String nextSongId = null;
+        if (observableList.size() > 1) {
+            for (int i = 0; i < observableList.size(); i++) {
+                if (observableList.get(i).getId().equals(selectedSong.getId())) {
+                    // if the song to delete is the last item get the previous song otherwise get upcoming song
+                    nextSongId = (i == observableList.size() - 1)
+                            ? observableList.get(i - 1).getId()
+                            : observableList.get(i + 1).getId();
+                }
+            }
+            selectSong(nextSongId);
+        }
+
         SongList songList = new SongList();
         songList.deleteSong(selectedSong.getId());
         // we want the changes on file to update
         refreshSongList();
+        selectSong(nextSongId);
     }
 
     public void selectSong(String id) throws FileNotFoundException {
+        // if null is passed in just select nothing
+        if (id == null) {
+            listView.getSelectionModel().select(null);
+        }
         refreshSongList();
         List<Song> filter = observableList.stream().filter(song -> song.getId().equals(id)).collect(Collectors.toList());
         if (filter.isEmpty()) {
