@@ -41,7 +41,7 @@ public class MainController {
 
     public MainController() throws FileNotFoundException {
         SongList songList = new SongList();
-//        songList.createSong(new Song( "michael Jackson", "THis is it", "Hi", "2017"));
+//        songList.createSong(new Song( "Thriller", "Michael Jackson", "This is It", "2017"));
         ArrayList<Song> songs = songList.getSongs();
         observableList = FXCollections.observableList(songs);
     }
@@ -86,6 +86,9 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("create.fxml"));
             Parent root = loader.load();
+
+            CreateController cctr = loader.getController();
+
 
             Node n = (Node) event.getSource();
             Stage stage=(Stage) n.getScene().getWindow();
