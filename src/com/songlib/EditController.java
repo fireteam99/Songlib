@@ -102,7 +102,5 @@ public class EditController {
         badInput.setContentText(m);
         badInput.showAndWait();
     }
-
-
 }
 

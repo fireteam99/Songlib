@@ -11,10 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import com.songlib.MainController; //**
-
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 public class CreateController {
 
@@ -58,17 +55,12 @@ public class CreateController {
         String album = albumTxtBox.getText();
         String year = yearTxtBox.getText();
 
-
-        //check for duplicates -- iterate through songList***
-
         Song newSong = new Song(name,artist,album,year); //create new song obj with given input
         SongList sl = new SongList();
-        int flag = 0; //0 for invalid, 1 for valid song
 
-// while input is invalid, keep trying to add song to songList
         try {
             sl.createSong(newSong);
-            try {
+            try { //goes back to main page upon valid submission
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
                 Parent root = loader.load();
 
@@ -87,7 +79,6 @@ public class CreateController {
             renderErrorMessage(i.getMessage());
         }
         //----end of stuff----//
-        //goes back to main page upon submission
     }
     private void renderErrorMessage(String m){
         Alert badInput = new Alert(Alert.AlertType.WARNING);
