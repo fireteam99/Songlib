@@ -9,11 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import com.songlib.Song;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -54,8 +50,6 @@ public class EditController {
     @FXML
     public void updateSong(ActionEvent event) throws Exception{ //this is the "submit" button
 
-        //**return id as well
-
         //----coding starts here...----//
         String name = editNameBox.getText();
         String artist = editArtistBox.getText();
@@ -64,35 +58,40 @@ public class EditController {
 
         //now update Song object --> this updates the temp copy, must set song obj to temp
         SongList sl = new SongList();
-        try {
-            sl.updateSong(songid, name, artist, album, year);
-        }
-        catch (NoSuchElementException n) {
-            Alert badInput = new Alert(Alert.AlertType.INFORMATION);
-            Button b = (Button) event.getSource();
-            Stage stage = (Stage) b.getScene().getWindow();
-            badInput.initOwner(stage);
+        int flag = 0; //0 for invalid input, 1 for valid input
 
-            badInput.setTitle("Error: Please make sure you did not remove storage.json file!.");
-            String content = n.getMessage();
-            badInput.setContentText(content);
-            badInput.showAndWait();
+        while (flag == 0) {// while edit is invalid, keep trying to edit until valid input
+            try {
+                sl.updateSong(songid, name, artist, album, year);
+            }
+            catch (NoSuchElementException n) {
+                Alert badInput = new Alert(Alert.AlertType.INFORMATION);
+                Button b = (Button) event.getSource();
+                Stage stage = (Stage) b.getScene().getWindow();
+                badInput.initOwner(stage);
 
-            Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }
-        catch (IllegalArgumentException i){
-            Alert badInput = new Alert(Alert.AlertType.INFORMATION);
-            Button b = (Button) event.getSource();
-            Stage stage = (Stage) b.getScene().getWindow();
-            badInput.initOwner(stage);
+                badInput.setTitle("Error: Please make sure you did not remove storage.json file!.");
+                String content = n.getMessage();
+                badInput.setContentText(content);
+                badInput.showAndWait();
 
-            badInput.setTitle("Error.");
-            String content = i.getMessage();
-            badInput.setContentText(content);
-            badInput.showAndWait();
+                Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+            catch (IllegalArgumentException i) {
+                Alert badInput = new Alert(Alert.AlertType.INFORMATION);
+                Button b = (Button) event.getSource();
+                Stage stage = (Stage) b.getScene().getWindow();
+                badInput.initOwner(stage);
+                badInput.setTitle("Error.");
+                String content = i.getMessage();
+                badInput.setContentText(content);
+                badInput.showAndWait();
+            }
+            flag = 1;
+            System.out.println(year + " is a valid input --> break out of while loop");
         }
 
         //after update is successful, go back to main page
@@ -100,17 +99,17 @@ public class EditController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
             Parent root = loader.load();
 
-        MainController mctr = loader.getController();
-        mctr.selectSong(songid);
-        Node n = (Node) event.getSource();
-        Stage stage=(Stage) n.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+            MainController mctr = loader.getController();
+            mctr.selectSong(songid);
+            Node n = (Node) event.getSource();
+            Stage stage=(Stage) n.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
 
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
     //**need to create EditController instance in MainController object when we click on editSong

@@ -63,22 +63,25 @@ public class CreateController {
 
         Song newSong = new Song(name,artist,album,year); //create new song obj with given input
         SongList sl = new SongList();
-        try {
-            sl.createSong(newSong);
+        int flag = 0; //0 for invalid, 1 for valid song
+
+        while (flag == 0) {// while input is invalid, keep trying to add song to songList
+            try {
+                sl.createSong(newSong);
+            } catch (IllegalArgumentException i) {
+                Alert badInput = new Alert(Alert.AlertType.INFORMATION);
+                Button b = (Button) event.getSource();
+                Stage stage = (Stage) b.getScene().getWindow();
+                badInput.initOwner(stage);
+
+                badInput.setTitle("Error.");
+                String content = i.getMessage();
+                badInput.setContentText(content);
+                badInput.showAndWait();
+
+            }
+            flag = 1;
         }
-        catch (IllegalArgumentException i){
-            Alert badInput = new Alert(Alert.AlertType.INFORMATION);
-            Button b = (Button) event.getSource();
-            Stage stage = (Stage) b.getScene().getWindow();
-            badInput.initOwner(stage);
-
-            badInput.setTitle("Error.");
-            String content = i.getMessage();
-            badInput.setContentText(content);
-            badInput.showAndWait();
-
-        }
-
         //----end of stuff----//
         //goes back to main page upon submission
         try {
