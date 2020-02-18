@@ -41,7 +41,7 @@ public class CreateController {
         Node n = (Node) event.getSource();
         Stage stage=(Stage) n.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 750, 500);;
         stage.setScene(scene);
         stage.show();
 
@@ -93,8 +93,9 @@ public class CreateController {
         Alert badInput = new Alert(Alert.AlertType.WARNING);
         badInput.setTitle("Error.");
         badInput.setContentText(m);
-        badInput.showAndWait();
+        badInput.showAndWait();   
     }
-
-
 }
+
+
+

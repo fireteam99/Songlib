@@ -1,0 +1,65 @@
+* {
+    -fx-font-family: "Verdana";
+}
+#topbar {
+    -fx-background-color: transparent;
+}
+#stack-pane {
+    -fx-background-color: linear-gradient(to top left, rgba(0,247,255,0.23396708683473385) 0%, rgba(255,255,255,1) 84%);
+}
+#placeholder-header {
+    -fx-background-color: transparent;
+    -fx-font-size: 15pt;
+    -fx-font-weight: 800;
+    -fx-text-fill: #a6a6a6;
+}
+#selected-song-labels {
+}
+#album-cover-border {
+    -fx-padding: 10;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 20, 0, 0, 0);
+}
+#name-label {
+    -fx-font-size: 14pt;
+    -fx-font-weight: 800;
+    -fx-text-fill: #171717;
+}
+#artist-label {
+    -fx-font-size: 11pt;
+    -fx-font-weight: 700;
+    -fx-text-fill: #ef326a;
+}
+#album-label {
+    -fx-font-size: 9pt;
+    -fx-font-weight: 400;
+    -fx-text-fill: #737373;
+}
+#year-label {
+    -fx-font-size: 9pt;
+    -fx-font-weight: 400;
+    -fx-text-fill: #ef326a;
+}
+
+#delete-button {
+    -fx-text-fill: #ef326a;
+}
+
+#create-button {
+    -fx-font-size: 12pt;
+}
+
+.button {
+    -fx-font-size: 11pt;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #737373;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 20, 0, 0, 0);
+}
+
+.list-view {
+    -fx-selection-bar: #d4cae3;
+    -fx-selection-bar-non-focused: #e3e3e3;
+    -fx-control-inner-background: #f1edf7;
+    -fx-control-inner-background-alt: -fx-control-inner-background;
+}

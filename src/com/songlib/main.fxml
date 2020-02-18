@@ -11,48 +11,52 @@
 
 <?import javafx.scene.layout.HBox?>
 <?import java.lang.Double?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.Image?>
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400" minWidth="600"
             prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.songlib.MainController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.songlib.MainController" stylesheets="@main.css">
     <left>
-        <ListView fx:id="listView" prefWidth="${borderPane.width * 0.3}" maxWidth="300" minWidth="250"
+        <ListView fx:id="listView" prefWidth="275" maxWidth="300" minWidth="250"
                   BorderPane.alignment="CENTER"/>
     </left>
     <center>
-        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <top>
-                <HBox prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER" alignment="CENTER_RIGHT">
-                    <Button fx:id="createButton" minWidth="30" minHeight="30" mnemonicParsing="false" onAction="#createSong" text="Add Song">
-                        <HBox.margin>
-                            <Insets top="10.0"/>
-                            <Insets right="10.0"/>
-                        </HBox.margin>
-                    </Button>
-                </HBox>
-            </top>
+        <BorderPane prefHeight="200.0" prefWidth="200.0">
             <center>
-                <VBox alignment="CENTER" style="-fx-background-color: #FFAD9B;">
-                    <ImageView fx:id="albumCover" fitHeight="${(borderPane.width + borderPane.height) * 0.15}"
-                               fitWidth="${(borderPane.width + borderPane.height) * 0.15}" pickOnBounds="true"
-                               preserveRatio="true">
-                        <VBox.margin>
-                            <Insets top="0"/>
-                        </VBox.margin>
-                    </ImageView>
-                    <Label fx:id="name" text="Name"/>
-                    <Label fx:id="artist" text="Artist"/>
-                    <Label fx:id="album" text="Album"/>
-                    <Label fx:id="year" text="Year"/>
-                    <HBox>
-                        <children>
-                            <Button fx:id="editButton" mnemonicParsing="false" onAction="#editSong" text="Edit" />
-                            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteSong" text="Delete" />
-                        </children>
-                        <VBox.margin>
-                            <Insets top="10.0"/>
-                        </VBox.margin>
+                <StackPane>
+                    <StackPane fx:id="stackPane" id="stack-pane">
+                        <VBox fx:id="placeholderContainer" alignment="CENTER">
+                            <Label id="placeholder-header" text="Add a song to get started" />
+                        </VBox>
+                        <VBox fx:id="selectedSongContainer" alignment="CENTER" spacing="10">
+                            <StackPane id="album-cover-border" maxWidth="${(borderPane.width + borderPane.height) * 0.15}">
+                                <ImageView id="album-cover" fx:id="albumCover" fitHeight="${(borderPane.width + borderPane.height) * 0.15}"
+                                           fitWidth="${(borderPane.width + borderPane.height) * 0.15}" pickOnBounds="true"
+                                           preserveRatio="true">
+                                </ImageView>
+                            </StackPane>
+                            <VBox id="selected-song-labels" alignment="CENTER_LEFT" maxWidth="${(borderPane.width + borderPane.height) * 0.15}">
+                                <Label id="name-label" fx:id="name" />
+                                <Label id="artist-label" fx:id="artist" />
+                                <Label id="album-label" fx:id="album" />
+                                <Label id="year-label" fx:id="year" />
+                            </VBox>
+                            <HBox alignment="CENTER" spacing="${borderPane.width * 0.05}" maxWidth="${(borderPane.width + borderPane.height) * 0.15}">
+                                <children>
+                                    <Button styleClass="button" fx:id="editButton" mnemonicParsing="false" onAction="#editSong" text="Edit" />
+                                    <Button id="delete-button" styleClass="button" fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteSong" text="Delete" />
+                                </children>
+                                <VBox.margin>
+                                    <Insets top="10.0"/>
+                                </VBox.margin>
+                            </HBox>
+                        </VBox>
+                    </StackPane>
+                    <HBox id="topbar" fx:id="topbar" alignment="CENTER_RIGHT" StackPane.alignment="TOP_CENTER" maxHeight="${stackPane.height * 0.15}" maxWidth="${stackPane.width * 0.8}">
+                        <Button id="create-button" styleClass="button" fx:id="createButton" minWidth="30" minHeight="30" mnemonicParsing="false" onAction="#createSong" text="Add Song">
+                        </Button>
                     </HBox>
-                </VBox>
+                </StackPane>
             </center>
         </BorderPane>
     </center>
