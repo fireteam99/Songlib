@@ -18,7 +18,7 @@
 #album-cover-border {
     -fx-padding: 10;
     -fx-background-color: #ffffff;
-    -fx-background-radius: 5;
+    -fx-background-radius: 15;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 20, 0, 0, 0);
 }
 #name-label {

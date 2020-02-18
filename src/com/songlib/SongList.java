@@ -52,6 +52,14 @@ public class SongList {
     }
     public void createSong(Song song) throws FileNotFoundException {
         init();
+        // make sure that name and artist are not empty
+        if (song.getName().isEmpty() || song.getArtist().isEmpty()) {
+            throw new IllegalArgumentException("A song's name and artist cannot be empty.");
+        }
+        // makes sure that the year is valid
+        if (!song.getYear().isEmpty() && !song.getYear().matches("^\\d{4}$")) {
+            throw new IllegalArgumentException("Please make sure your year is between 0000 and 9999 ");
+        }
         // make sure the song being added is not a duplicate
         List<Song> duplicateSongFilter = songList.stream()
                 .filter(s -> s.getArtist().equalsIgnoreCase(song.getArtist()) && s.getName().equalsIgnoreCase(song.getName()))
@@ -109,7 +117,7 @@ public class SongList {
             throw new IllegalArgumentException("A song already exists with the same name and artist.");
         }
         // makes sure that the year is valid
-        if (!year.matches("^\\d{4}$")) {
+        if (!year.isEmpty() && !year.matches("^\\d{4}$")) {
             throw new IllegalArgumentException("Please make sure your year is between 0000 and 9999 ");
         }
         for (Song song: songList) {
