@@ -41,7 +41,9 @@ public class EditController {
     public void cancelEditSong(ActionEvent event) throws Exception {
         Node n = (Node) event.getSource();
         Stage stage=(Stage) n.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Parent root = loader.load();
+        select(songid, loader);
         Scene scene = new Scene(root, 750, 500);
         stage.setScene(scene);
         stage.show();
@@ -64,9 +66,9 @@ public class EditController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
                 Parent root = loader.load();
-
-                MainController mctr = loader.getController();
-                mctr.selectSong(songid);
+//                MainController mctr = loader.getController();
+//                mctr.selectSong(songid);
+                select(songid, loader);
                 Node n = (Node) event.getSource();
                 Stage stage=(Stage) n.getScene().getWindow();
                 Scene scene = new Scene(root);
@@ -101,6 +103,10 @@ public class EditController {
         badInput.setTitle("Error.");
         badInput.setContentText(m);
         badInput.showAndWait();
+    }
+    private void select(String id, FXMLLoader ld) throws Exception{
+        MainController mctr = ld.getController();
+        mctr.selectSong(id);
     }
 }
 
