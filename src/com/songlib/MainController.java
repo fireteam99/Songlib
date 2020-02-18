@@ -121,7 +121,7 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("create.fxml"));
             Parent root = loader.load();
 
-            CreateController cctr = loader.getController();
+            //CreateController cctr = loader.getController();
 
 
             Node n = (Node) event.getSource();

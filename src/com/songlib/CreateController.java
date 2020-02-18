@@ -63,41 +63,39 @@ public class CreateController {
 
         Song newSong = new Song(name,artist,album,year); //create new song obj with given input
         SongList sl = new SongList();
+        int flag = 0; //0 for invalid, 1 for valid song
+
+// while input is invalid, keep trying to add song to songList
         try {
             sl.createSong(newSong);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+                Parent root = loader.load();
+
+                MainController mctr = loader.getController();
+                mctr.selectSong(newSong.getId());
+                Node n = (Node) event.getSource();
+                Stage stage=(Stage) n.getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IllegalArgumentException i) {
+            renderErrorMessage(i.getMessage());
         }
-        catch (IllegalArgumentException i){
-            Alert badInput = new Alert(Alert.AlertType.INFORMATION);
-            Button b = (Button) event.getSource();
-            Stage stage = (Stage) b.getScene().getWindow();
-            badInput.initOwner(stage);
-
-            badInput.setTitle("Error.");
-            String content = i.getMessage();
-            badInput.setContentText(content);
-            badInput.showAndWait();
-
-        }
-
         //----end of stuff----//
         //goes back to main page upon submission
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
-            Parent root = loader.load();
-
-            MainController mctr = loader.getController();
-            mctr.selectSong(newSong.getId());
-            Node n = (Node) event.getSource();
-            Stage stage=(Stage) n.getScene().getWindow();
-            Scene scene = new Scene(root, 750, 500);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
-
-
+    private void renderErrorMessage(String m){
+        Alert badInput = new Alert(Alert.AlertType.WARNING);
+        badInput.setTitle("Error.");
+        badInput.setContentText(m);
+        badInput.showAndWait();   
+    }
 }
+
+
+
