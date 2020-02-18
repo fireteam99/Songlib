@@ -58,7 +58,6 @@ public class EditController {
         String album = editAlbumBox.getText();
         String year = editYearBox.getText();
 
-        //now update Song object --> this updates the temp copy, must set song obj to temp
         SongList sl = new SongList();
 
         try {
@@ -66,8 +65,6 @@ public class EditController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
                 Parent root = loader.load();
-//                MainController mctr = loader.getController();
-//                mctr.selectSong(songid);
                 select(songid, loader);
                 Node n = (Node) event.getSource();
                 Stage stage=(Stage) n.getScene().getWindow();
