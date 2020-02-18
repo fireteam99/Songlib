@@ -126,7 +126,7 @@ public class MainController {
 
             Node n = (Node) event.getSource();
             Stage stage=(Stage) n.getScene().getWindow();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 750, 500);;
             stage.setScene(scene);
             stage.show();
 
@@ -160,7 +160,7 @@ public class MainController {
             ectr.currSong(listView.getSelectionModel().getSelectedItem().getId());
             Node n = (Node) event.getSource();
             Stage stage=(Stage) n.getScene().getWindow();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 750, 500);;
             stage.setScene(scene);
             stage.show();
 
