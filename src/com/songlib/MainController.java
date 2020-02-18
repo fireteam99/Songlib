@@ -9,14 +9,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.shape.Rectangle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,6 +45,15 @@ public class MainController {
     private ListView<Song> listView;
     private ObservableList<Song> observableList;
 
+    @FXML
+    private HBox topbar;
+
+    @FXML
+    private VBox selectedSongContainer;
+
+    @FXML
+    private VBox placeholderContainer;
+
     public MainController() throws FileNotFoundException {
         SongList songList = new SongList();
 //        songList.createSong(new Song( "Thriller", "Michael Jackson", "This is It", "2017"));
@@ -47,6 +62,12 @@ public class MainController {
     }
 
     public void initialize() throws FileNotFoundException {
+        topbar.setPickOnBounds(false);
+        placeholderContainer.setPickOnBounds(false);
+        selectedSongContainer.setPickOnBounds(false);
+        // binds the visibility and layout calculations to the selectedSongContainer
+        selectedSongContainer.managedProperty().bind(selectedSongContainer.visibleProperty());
+        placeholderContainer.managedProperty().bind(placeholderContainer.visibleProperty());
         // generates the list
         listView.setItems(observableList);
         listView.setCellFactory(songListView -> new SongListViewCellController());
@@ -55,6 +76,9 @@ public class MainController {
         // select the first item if the list is not empty
         if (!observableList.isEmpty()) {
             listView.getSelectionModel().select(0);
+        } else {
+            selectedSongContainer.setVisible(false);
+            placeholderContainer.setVisible(true);
         }
     }
 
@@ -67,14 +91,24 @@ public class MainController {
         }
     }
 
+    @FXML
+    private ImageView albumCover;
+
     public void renderSelectedSong() {
         Song selectedSong = listView.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
+            selectedSongContainer.setVisible(true);
+            placeholderContainer.setVisible(false);
+
             albumCover.setImage(new Image(new File("resources/album_cover_placeholder.png").toURI().toString()));
+
             name.setText(selectedSong.getName());
             artist.setText(selectedSong.getArtist());
             album.setText(selectedSong.getAlbum());
             year.setText(selectedSong.getYear());
+        } else {
+            selectedSongContainer.setVisible(false);
+            placeholderContainer.setVisible(true);
         }
     }
 
@@ -92,7 +126,7 @@ public class MainController {
 
             Node n = (Node) event.getSource();
             Stage stage=(Stage) n.getScene().getWindow();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 750, 500);;
             stage.setScene(scene);
             stage.show();
 
@@ -100,9 +134,6 @@ public class MainController {
             e.printStackTrace();
         }
     }
-
-    @FXML
-    private ImageView albumCover;
 
     @FXML
     private Label name;
@@ -129,7 +160,7 @@ public class MainController {
             ectr.currSong(listView.getSelectionModel().getSelectedItem().getId());
             Node n = (Node) event.getSource();
             Stage stage=(Stage) n.getScene().getWindow();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 750, 500);;
             stage.setScene(scene);
             stage.show();
 
@@ -170,14 +201,17 @@ public class MainController {
     public void selectSong(String id) throws FileNotFoundException {
         // if null is passed in just select nothing
         if (id == null) {
-            listView.getSelectionModel().select(null);
+            listView.getSelectionModel().clearSelection();
+            selectedSongContainer.setVisible(false);
+            placeholderContainer.setVisible(true);
+        } else {
+            refreshSongList();
+            List<Song> filter = observableList.stream().filter(song -> song.getId().equals(id)).collect(Collectors.toList());
+            if (filter.isEmpty()) {
+                throw new NoSuchElementException("The requested song does not exist.");
+            }
+            listView.getSelectionModel().select(filter.get(0));
         }
-        refreshSongList();
-        List<Song> filter = observableList.stream().filter(song -> song.getId().equals(id)).collect(Collectors.toList());
-        if (filter.isEmpty()) {
-            throw new NoSuchElementException("The requested song does not exist.");
-        }
-        listView.getSelectionModel().select(filter.get(0));
     }
 
     //----end of main menu (listview)
