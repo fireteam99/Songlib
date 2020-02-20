@@ -1,3 +1,4 @@
+//Ray Sy, Robert Cheng
 package com.songlib;
 
 import javafx.event.ActionEvent;
@@ -63,9 +64,7 @@ public class CreateController {
             try { //goes back to main page upon valid submission
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
                 Parent root = loader.load();
-
-                MainController mctr = loader.getController();
-                mctr.selectSong(newSong.getId());
+                select(newSong.getId(), loader); //display this song after submission
                 Node n = (Node) event.getSource();
                 Stage stage=(Stage) n.getScene().getWindow();
                 Scene scene = new Scene(root);
@@ -85,6 +84,10 @@ public class CreateController {
         badInput.setTitle("Error.");
         badInput.setContentText(m);
         badInput.showAndWait();   
+    }
+    private void select(String id, FXMLLoader ld) throws Exception{
+        MainController mctr = ld.getController();
+        mctr.selectSong(id);
     }
 }
 
