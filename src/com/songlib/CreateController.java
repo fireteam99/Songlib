@@ -16,6 +16,8 @@ import java.io.IOException;
 
 public class CreateController {
 
+    private String songid;
+
     @FXML
     private Button cancelAddButton;
 
@@ -38,7 +40,12 @@ public class CreateController {
     public void cancelAddingSong(ActionEvent event) throws Exception{
         Node n = (Node) event.getSource();
         Stage stage=(Stage) n.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Parent root = loader.load();
+        Boolean flag = checkEmpty(songid);
+        if (flag == false){ //as long as songid is not empty, will not attempt to select anything
+            select(songid, loader); //upon canceling, will go back to the currently selected song
+        }
         Scene scene = new Scene(root, 750, 500);;
         stage.setScene(scene);
         stage.show();
@@ -79,7 +86,7 @@ public class CreateController {
         }
         //----end of stuff----//
     }
-    private void renderErrorMessage(String m){
+    private void renderErrorMessage(String m){ //get the caught exception's message
         Alert badInput = new Alert(Alert.AlertType.WARNING);
         badInput.setTitle("Error.");
         badInput.setContentText(m);
@@ -88,6 +95,15 @@ public class CreateController {
     private void select(String id, FXMLLoader ld) throws Exception{
         MainController mctr = ld.getController();
         mctr.selectSong(id);
+    }
+    public void select(String id){ //saves id of the prev selected song, in case of cancel
+        songid = id;
+    }
+    private boolean checkEmpty(String test){ //check is songid is null (indicates no song is selected/empty songList)
+        if (test == null){
+            return true; //true means empty
+        }
+        return false;
     }
 }
 

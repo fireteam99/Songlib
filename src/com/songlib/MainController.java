@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 
 public class MainController {
 
-    //----Main menu (listview)
+    //----SongLib menu (listview)
     private Stage stage;
 
     @FXML
@@ -121,9 +121,13 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("create.fxml"));
             Parent root = loader.load();
 
-            //CreateController cctr = loader.getController();
+            CreateController cctr = loader.getController();
 
-
+            //pass in the currently selectedSong id, need to check if empty
+            SongList s = new SongList();
+            if (s.getSongs().isEmpty() == false) { //pass curr selected song, if not empty
+                cctr.select(listView.getSelectionModel().getSelectedItem().getId());
+            }
             Node n = (Node) event.getSource();
             Stage stage=(Stage) n.getScene().getWindow();
             Scene scene = new Scene(root, 750, 500);;

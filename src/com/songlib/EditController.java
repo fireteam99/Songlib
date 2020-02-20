@@ -59,7 +59,6 @@ public class EditController {
         String album = editAlbumBox.getText();
         String year = editYearBox.getText();
 
-        //now update Song object --> this updates the temp copy, must set song obj to temp
         SongList sl = new SongList();
 
         try {
