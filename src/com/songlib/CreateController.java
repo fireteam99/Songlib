@@ -58,10 +58,10 @@ public class CreateController {
         //**----do stuff----**//
 
         //read in user input
-        String name = nameTxtBox.getText();
-        String artist = artistTxtBox.getText();
-        String album = albumTxtBox.getText();
-        String year = yearTxtBox.getText();
+        String name = nameTxtBox.getText().trim();
+        String artist = artistTxtBox.getText().trim();
+        String album = albumTxtBox.getText().trim();
+        String year = yearTxtBox.getText().trim();
 
         Song newSong = new Song(name,artist,album,year); //create new song obj with given input
         SongList sl = new SongList();

@@ -54,10 +54,10 @@ public class EditController {
     public void updateSong(ActionEvent event) throws Exception{ //this is the "submit" button
 
         //----coding starts here...----//
-        String name = editNameBox.getText();
-        String artist = editArtistBox.getText();
-        String album = editAlbumBox.getText();
-        String year = editYearBox.getText();
+        String name = editNameBox.getText().trim();
+        String artist = editArtistBox.getText().trim();
+        String album = editAlbumBox.getText().trim();
+        String year = editYearBox.getText().trim();
 
         SongList sl = new SongList();
 
